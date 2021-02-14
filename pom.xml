@@ -137,6 +137,19 @@
 			    </execution>
 			  </executions>
 			</plugin>
+			<plugin> 
+			<groupId>com.google.cloud.tools</groupId>  
+			<artifactId>jib-maven-plugin</artifactId>  
+			<version>1.0.0</version>  
+			<configuration> 
+			  <to> 
+			    <image>hub.io/jib/basedata-jib-test</image>  
+			    <tags> 
+			      <tag>201902180927</tag> 
+			    </tags> 
+			  </to> 
+			</configuration> 
+		      </plugin> 
 		</plugins>
 	</build>
 
