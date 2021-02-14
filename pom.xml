@@ -81,6 +81,18 @@
 			    </execution>
 			  </executions>
 			</plugin>
+			<plugin>
+			  <groupId>org.scoverage</groupId>
+			  <artifactId>scoverage-maven-plugin</artifactId>
+			  <version>1.0.0</version>
+			  <reportSets>
+			    <reportSet>
+			      <reports>
+				<report>report-only</report>
+			      </reports>
+			    </reportSet>
+			  </reportSets>
+			</plugin>
 		</plugins>
 	</build>
 
