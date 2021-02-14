@@ -139,6 +139,13 @@
 			</plugin>
 			
 		</plugins>
+		<dependencies>
+		<dependency>
+		    <groupId>org.scoverage</groupId>
+		    <artifactId>scalac-scoverage-plugin_2.12</artifactId>
+		    <version>${scalac-scoverage-plugin.version}</version>
+		</dependency>
+		</dependencies>
 	</build>
 
 </project>
