@@ -1,160 +1,127 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-<!--
-   Copyright (c) 2009, 2012 Mountainminds GmbH & Co. KG and Contributors
-   All rights reserved. This program and the accompanying materials
-   are made available under the terms of the Eclipse Public License v1.0
-   which accompanies this distribution, and is available at
-   http://www.eclipse.org/legal/epl-v10.html
+    <groupId>com.jesperdj</groupId>
+    <artifactId>scala-maven-example</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
 
-   Contributors:
-      Marc R. Hoffmann - initial API and implementation
--->
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-<!-- <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion> -->
+        <java.version>1.8</java.version>
+        <scala.version>2.12.6</scala.version>
+    </properties>
 
-	<groupId>org.jacoco</groupId>
-	<artifactId>org.jacoco.examples.maven.java</artifactId>
-	<version>1.0-SNAPSHOT</version>
-	<packaging>jar</packaging>
+    <dependencies>
+        <!-- scala-maven-plugin determines the Scala version to use from this dependency -->
+        <dependency>
+            <groupId>org.scala-lang</groupId>
+            <artifactId>scala-library</artifactId>
+            <version>${scala.version}</version>
+        </dependency>
+    </dependencies>
 
-	<name>JaCoCo Maven plug-in example for Java project</name>
-	<url>http://www.eclemma.org/jacoco</url>
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.compiler.source>1.8</maven.compiler.source>
-		<maven.compiler.target>1.8</maven.compiler.target>
-	</properties>
+    <build>
+        <plugins>
+            <!-- Configure maven-compiler-plugin to use the desired Java version -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.0</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
 
-	<dependencies>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.13.1</version>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
+            <!-- Use build-helper-maven-plugin to add Scala source and test source directories -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>3.0.0</version>
+                <executions>
+                    <execution>
+                        <id>add-source</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>src/main/scala</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>add-test-source</id>
+                        <phase>generate-test-sources</phase>
+                        <goals>
+                            <goal>add-test-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>src/test/scala</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
 
-	<build>
-		<sourceDirectory>src/main/java</sourceDirectory>
-		<plugins>
-<!-- 			<plugin>
-				<groupId>org.jacoco</groupId>
-				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.8.6</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>prepare-agent</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>report</id>
-						<phase>test</phase>
-						<goals>
-							<goal>report</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin> -->
-<!-- 			<plugin> 
-				<groupId>org.apache.maven.plugins</groupId> 
-				<artifactId>maven-compiler-plugin</artifactId> 
-				<version>3.8.1</version> 
-			</plugin> -->
-<!-- 			<plugin>
-			  <groupId>org.scoverage</groupId>
-			  <artifactId>scoverage-maven-plugin</artifactId>
-			  <version>1.0.0</version>
-			  <configuration>
-			    <minimumCoverage>80</minimumCoverage>
-			    <failOnMinimumCoverage>false</failOnMinimumCoverage>
-			  </configuration>
-			  <executions>
-			    <execution>
-			      <goals>
-				<goal>check</goal>
-			      </goals>
-			      <phase>test</phase>
-			    </execution>
-			  </executions>
-			</plugin> -->
-<!-- 			<plugin>
-			  <groupId>org.scoverage</groupId>
-			  <artifactId>scoverage-maven-plugin</artifactId>
-			  <version>1.0.0</version>
-			  <reportSets>
-			    <reportSet>
-			      <reports>
-				<report>report-only</report>
-			      </reports>
-			    </reportSet>
-			  </reportSets>
-			</plugin> -->
-			<plugin>
-			  <groupId>org.jacoco</groupId>
-			  <artifactId>jacoco-maven-plugin</artifactId>
-			  <version>0.8.3</version>
-			  <executions>
-			    <execution>
-			      <id>coverage-initialize</id>
-			      <goals>
-				<goal>prepare-agent</goal>
-			      </goals>
-			    </execution>
-			    <execution>
-			      <id>coverage-report</id>
-			      <phase>post-integration-test</phase>
-			      <goals>
-				<goal>report</goal>
-			      </goals>
-			    </execution>
-			    <!-- Threshold -->
-			    <execution>
-			      <id>coverage-check</id>
-			      <goals>
-				<goal>check</goal>
-			      </goals>
-			      <configuration>
-				<rules>
-				  <rule>
-				    <element>CLASS</element>
-				    <excludes>
-				      <exclude>com.asimio.demo.Application</exclude>
-				    </excludes>
-				    <limits>
-				      <limit>
-					<counter>LINE</counter>
-					<value>COVEREDRATIO</value>
-					<minimum>80%</minimum>
-				      </limit>
-				    </limits>
-				  </rule>
-				</rules>
-			      </configuration>
-			    </execution>
-			  </executions>
-			</plugin>
-			<plugin>
-			<groupId>org.scoverage</groupId>
-			<artifactId>scoverage-maven-plugin</artifactId>
-			<version>${scoverage.plugin.version}</version>
-			<configuration>
-			    <highlighting>true</highlighting>
-			</configuration>
-			<executions>
-			    <execution>
-				<phase>test</phase>
-				<goals>
-				    <goal>report</goal>
-				</goals>
-			    </execution>
-			</executions>
-		    </plugin>
-		</plugins>
-		
-	</build>
+            <!-- Use scala-maven-plugin for Scala support -->
+            <plugin>
+                <groupId>net.alchim31.maven</groupId>
+                <artifactId>scala-maven-plugin</artifactId>
+                <version>3.2.2</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <!-- Need to specify this explicitly, otherwise plugin won't be called when doing e.g. mvn compile -->
+                            <goal>compile</goal>
+                            <goal>testCompile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
 
+            <!-- scala assembly-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+                 <plugin>
+                <groupId>org.scoverage</groupId>
+                <artifactId>scoverage-maven-plugin</artifactId>
+                <version>${scoverage.plugin.version}</version>
+                <configuration>
+                    <highlighting>true</highlighting>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>
