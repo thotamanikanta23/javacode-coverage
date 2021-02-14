@@ -64,6 +64,23 @@
 				<artifactId>maven-compiler-plugin</artifactId> 
 				<version>3.8.1</version> 
 			</plugin>
+			<plugin>
+			  <groupId>org.scoverage</groupId>
+			  <artifactId>scoverage-maven-plugin</artifactId>
+			  <version>1.0.0</version>
+			  <configuration>
+			    <minimumCoverage>80</minimumCoverage>
+			    <failOnMinimumCoverage>false</failOnMinimumCoverage>
+			  </configuration>
+			  <executions>
+			    <execution>
+			      <goals>
+				<goal>check</goal>
+			      </goals>
+			      <phase>test</phase>
+			    </execution>
+			  </executions>
+			</plugin>
 		</plugins>
 	</build>
 
